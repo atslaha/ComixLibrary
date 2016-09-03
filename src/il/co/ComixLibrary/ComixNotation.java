@@ -1,6 +1,9 @@
 package il.co.ComixLibrary;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 public class ComixNotation implements Serializable {
@@ -8,16 +11,16 @@ public class ComixNotation implements Serializable {
 	private String comixTitle;
 	private String issueName;
 	private String mainHeroName;
-	private transient String dateOfBuying;
+	private transient Calendar dateOfBuying;
 	
-	public ComixNotation(String issueYear, String mainHeroName, String issueName, String comixTitle, String dateOfBuying){
+	public ComixNotation(String issueYear, String mainHeroName, String issueName, String comixTitle, Calendar dateOfBuying){
 		this.issueYear=issueYear;
 		this.mainHeroName=mainHeroName;
 		this.issueName=issueName;
 		this.comixTitle=comixTitle;
 		this.dateOfBuying=dateOfBuying;}
 	
-	public ComixNotation(){this("EmptyLine","EmptyLine","EmptyLine","EmptyLine","EmptyLine");}
+	public ComixNotation(){this("EmptyLine","EmptyLine","EmptyLine","EmptyLine", new GregorianCalendar(2016,1,28));}
 	
 	public Object getComixNotation(){
 		return new ComixNotation(issueYear, mainHeroName, issueName, comixTitle, dateOfBuying);}
@@ -26,17 +29,18 @@ public class ComixNotation implements Serializable {
 	public void setComixTitle(String comixTitle){this.comixTitle=comixTitle;}
 	public void setIssueName(String issueName){this.issueName=issueName;}
 	public void setMainHeroName(String mainHeroName){this.mainHeroName=mainHeroName;}
-	public void setDateOfBuying(String dateOfBuying){this.dateOfBuying=dateOfBuying;}
+	public void setDateOfBuying(Calendar dateOfBuying){this.dateOfBuying=dateOfBuying;}
 	
 	public String getIssueYear(){return issueYear;}
 	public String getComixTitle(){return comixTitle;}
 	public String getIssueName(){return issueName;}
 	public String getMainHeroName(){return mainHeroName;}
-	public String getDateOfBuying(){return dateOfBuying;}
+	public Calendar getDateOfBuying(){return dateOfBuying;}
 	
 	@Override
 	public String toString(){
-		return issueYear+"  "+mainHeroName+"  "+issueName+"  "+comixTitle+"  "+dateOfBuying;}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
+		return issueYear+"  "+mainHeroName+"  "+issueName+"  "+comixTitle+"  "+sdf.format(dateOfBuying.getTime());}
 	
 	@Override
 	public boolean equals(Object s){
