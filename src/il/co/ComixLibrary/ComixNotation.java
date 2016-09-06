@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import org.joda.time.DateTime;
+
 
 public class ComixNotation implements Serializable {
 	private String issueYear;
@@ -66,6 +68,7 @@ public class ComixNotation implements Serializable {
 	public static void main(String[] args) {
 		ComixNotation notation1 = new ComixNotation();
 		System.out.println(notation1);
+		DateTime test = new DateTime();
 
 	}
 
