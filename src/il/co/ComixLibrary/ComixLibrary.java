@@ -6,8 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.joda.time.DateTime;
 
 import il.co.ComixLibrary.ComixNotation;
 
@@ -19,13 +23,46 @@ public class ComixLibrary {
 	public static void comixLibrary(int operations){
 		switch(operations){
 		case 1://show notations
-			System.out.println("All Contacts in the Comix Library:"+"\n");
+			System.out.println("All Notations in the Comix Library:"+"\n");
 			for (ComixNotation p : library.values()){
 				System.out.println(p);
 			}
 			System.out.println();
 			break;
+		
+		case 2: // add comix
+			ComixLibraryOperations clo = new ComixLibraryOperations();
+			String comixTitle, issueName, mainHeroName;
+			DateTime issueYear = new DateTime();
+			Calendar dateOfBuying = new GregorianCalendar();
+			System.out.println("Input Year of isuue!");
+			issueYear.year().setCopy(clo.inputDigit());
+			System.out.println("Input Month of issue!");
+			issueYear.monthOfYear().setCopy(clo.inputDigit());
+			System.out.println("Input Day of issue!");
+			issueYear.dayOfMonth().setCopy(clo.inputDigit());
+			System.out.println("Input the Main Hero name!");
+			mainHeroName = clo.inputValue();
+			System.out.println("Input the issue Name!");
+			issueName = clo.inputValue();
+			System.out.println("Input Comix Title!");
+			comixTitle = clo.inputValue();
+			System.out.println("Input Year of buying!");
+			dateOfBuying.set(Calendar.YEAR, clo.inputDigit());
+			System.out.println("Input Month of buying!");
+			dateOfBuying.set(Calendar.MONTH, clo.inputDigit());
+			System.out.println("Input Day of buying!");
+			dateOfBuying.set(Calendar.DAY_OF_MONTH, clo.inputDigit());
+			ComixNotation CN = new ComixNotation(issueYear, mainHeroName, issueName, comixTitle, dateOfBuying);
+			library.put(comixTitle, CN);
+//			serData();
+//			System.out.println();
+			
+			
+		break;
+		
 		}
+		
 		
 	}
 	
