@@ -75,6 +75,11 @@ public class ComixNotation implements Serializable {
 		result = 37*result + dateOfBuying.hashCode();
 		return result;
 	}
+	
+	// Test method for Testing JUnit
+	public boolean getBool(){
+		return true;
+	} 
 
 	public static void main(String[] args) {
 		ComixNotation notation1 = new ComixNotation();
