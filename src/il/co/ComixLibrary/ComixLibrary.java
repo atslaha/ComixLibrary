@@ -1,24 +1,17 @@
 package il.co.ComixLibrary;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import org.joda.time.DateTime;
+
+import java.io.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.joda.time.DateTime;
-
-import il.co.ComixLibrary.ComixNotation;
-
-
+//remove this comment
 public class ComixLibrary {
-	
-	private static Map<String, ComixNotation> library = new HashMap<String, ComixNotation>();
+
+	private static Map<String, ComixNotation> library = new HashMap<>();
 	
 	public static void comixLibrary(int operations){
 		switch(operations){
@@ -85,7 +78,7 @@ public class ComixLibrary {
 	}
 
 	public static void deserData() {
-		Object retObject = null;
+		Object retObject;
 		try {
 			FileInputStream fileIn = new FileInputStream("profiles.ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
