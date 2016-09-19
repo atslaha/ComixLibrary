@@ -13,6 +13,12 @@ public class DemoTestComixNotation {
 		ComixNotation demoNotation = new ComixNotation();
 		assertTrue(demoNotation.getBool());
 	}
+	
+	@Test
+	public void ShouldReturnTrue1(){
+		ComixNotation demoNotation = new ComixNotation();
+		assertTrue(demoNotation.getBooll());
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -78,6 +78,10 @@ public class ComixNotation implements Serializable {
 	
 	// Test method for Testing JUnit
 	public boolean getBool(){
+		return false;
+	} 
+	
+	public boolean getBooll(){
 		return true;
 	} 
 
