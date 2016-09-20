@@ -16,7 +16,7 @@ public class ComixNotation implements Serializable {
     private String comixTitle;
     private String issueName;
     private String mainHeroName;
-    private transient Calendar dateOfBuying;
+    private transient Calendar  dateOfBuying;
 
     ComixNotation(DateTime issueYear, String mainHeroName, String issueName, String comixTitle, Calendar dateOfBuying) {
         this.issueYear = issueYear;
@@ -26,9 +26,13 @@ public class ComixNotation implements Serializable {
         this.dateOfBuying = dateOfBuying;
     }
 
+//    public ComixNotation() {
+//        this(new DateTime(2015, 10, 11, 0, 0), "EmptyLine", "EmptyLine", "EmptyLine", new GregorianCalendar(2016, 1, 28));
+//    }
+    
     public ComixNotation() {
-        this(new DateTime(2015, 10, 11, 0, 0), "EmptyLine", "EmptyLine", "EmptyLine", new GregorianCalendar(2016, 1, 28));
-    }
+      this(null, null, null, null, null);
+  }
 
     public Object getComixNotation() {
         return new ComixNotation(issueYear, mainHeroName, issueName, comixTitle, dateOfBuying);
@@ -102,6 +106,9 @@ public class ComixNotation implements Serializable {
     public String toString() {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy MM dd");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
+        if (dateOfBuying == null){
+        	return fmt.print(issueYear) + "  " + mainHeroName + "  " + issueName + "  " + comixTitle;
+        }else
         return fmt.print(issueYear) + "  " + mainHeroName + "  " + issueName + "  " + comixTitle + "  " + sdf.format(dateOfBuying.getTime());
     }
 

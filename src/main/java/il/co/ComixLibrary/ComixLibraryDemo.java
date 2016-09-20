@@ -4,7 +4,7 @@ public class ComixLibraryDemo {
 
 
     public static void main(String[] args) {
-        //ComixLibrary.deserData();
+        ComixLibrary.deserData();
         int a;
         ComixLibraryOperations dig = new ComixLibraryOperations();
         while (true) {
