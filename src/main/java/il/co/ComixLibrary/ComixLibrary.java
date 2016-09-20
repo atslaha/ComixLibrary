@@ -12,6 +12,7 @@ import java.util.Map;
 public class ComixLibrary {
 
     private static Map<String, ComixNotation> library = new HashMap<>();
+    private static Integer id = 1;
 
     static void comixLibrary(int operations) {
         switch (operations) {
@@ -29,11 +30,11 @@ public class ComixLibrary {
                 DateTime issueYear = new DateTime();
                 Calendar dateOfBuying = new GregorianCalendar();
                 System.out.println("Input Year of isuue!");
-                issueYear.year().setCopy(clo.inputDigit());
-                System.out.println("Input Month of issue!");
-                issueYear.monthOfYear().setCopy(clo.inputDigit());
+                issueYear = issueYear.year().setCopy(clo.inputDigit());
+                System.out.println("Input Month of issue! in format (0-12)");
+                issueYear = issueYear.monthOfYear().setCopy(clo.inputDigit());
                 System.out.println("Input Day of issue!");
-                issueYear.dayOfMonth().setCopy(clo.inputDigit());
+                issueYear = issueYear.dayOfMonth().setCopy(clo.inputDigit());
                 System.out.println("Input the Main Hero name!");
                 mainHeroName = clo.inputValue();
                 System.out.println("Input the issue Name!");
@@ -43,12 +44,13 @@ public class ComixLibrary {
                 System.out.println("Input Year of buying!");
                 dateOfBuying.set(Calendar.YEAR, clo.inputDigit());
                 System.out.println("Input Month of buying!");
-                dateOfBuying.set(Calendar.MONTH, clo.inputDigit());
+                dateOfBuying.set(Calendar.MONTH, (clo.inputDigit()-1));
                 System.out.println("Input Day of buying!");
                 dateOfBuying.set(Calendar.DAY_OF_MONTH, clo.inputDigit());
                 ComixNotation CN = new ComixNotation(issueYear, mainHeroName, issueName, comixTitle, dateOfBuying);
-                library.put(comixTitle, CN);
-//			serData();
+                library.put(issueName, CN);
+			//serData();
+			
 //			System.out.println();
 
 
@@ -78,15 +80,16 @@ public class ComixLibrary {
     }
 
     public static void deserData() {
-        Object retObject;
+        Object retObject = null;
         try {
             FileInputStream fileIn = new FileInputStream("profiles.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             retObject = in.readObject();
+            library = (Map<String, ComixNotation>) retObject;
             //book = (Map<String, PhoneNotation>) retObject;
             fileIn.close();
             in.close();
-            library = (Map<String, ComixNotation>) retObject;
+            
         } catch (FileNotFoundException e) {
             System.out.println("File not found!" + "\n");
             System.exit(1);
