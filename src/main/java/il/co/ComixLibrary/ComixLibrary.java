@@ -9,19 +9,22 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 //remove this comment
 public class ComixLibrary {
 
 	private static Map<String, ComixNotation> library = new HashMap<>();
-	private static Integer id = 1;
+	
 	
 	static void comixLibrary(int operations) {
 		switch (operations) {
 		case 1:// show notations
 			System.out.println("All Notations in the Comix Library:" + "\n");
+			int count = 0;
 			for (ComixNotation p : library.values()) {
-				System.out.println(p);
+				count++;
+				System.out.println(count + ": " + p);
 			}
 			System.out.println();
 			break;
@@ -30,6 +33,7 @@ public class ComixLibrary {
 			int inputYear = 0;
 			int inputMonthOfYear = 0;
 			int inputDayOfMonth = 0;
+			String uuid = UUID.randomUUID().toString();
 			ComixLibraryOperations clo = new ComixLibraryOperations();
 			String comixTitle, issueName, mainHeroName;
 			DateTime issueYear = new DateTime();
@@ -91,11 +95,27 @@ public class ComixLibrary {
 			
 			
 			ComixNotation CN = new ComixNotation(issueYear, mainHeroName, issueName, comixTitle, dateOfBuying);
-			library.put(issueName, CN);
+			library.put(uuid, CN);
 			 serData();
 
 			// System.out.println();
 
+			break;
+			
+		case 3://Delete ComixNotation
+			ComixLibraryOperations clo1 = new ComixLibraryOperations();
+			System.out.println("Input number of Comix Notation!");
+			int inputNumber = clo1.inputDigit();
+			int count1 = 0;
+			for (Map.Entry<String, ComixNotation> entry : library.entrySet()){
+				count1++;
+				if (count1 == inputNumber){
+					String key = entry.getKey();
+					library.remove(key);
+					System.out.println("Notation has deleted successful!"+ "\n");					
+				}
+			}
+			serData();
 			break;
 
 		}
