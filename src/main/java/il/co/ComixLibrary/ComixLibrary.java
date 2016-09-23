@@ -1,6 +1,7 @@
 package main.java.il.co.ComixLibrary;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,7 @@ public class ComixLibrary {
 
 	private static Map<String, ComixNotation> library = new HashMap<>();
 	private static Integer id = 1;
-
+	
 	static void comixLibrary(int operations) {
 		switch (operations) {
 		case 1:// show notations
@@ -26,28 +27,69 @@ public class ComixLibrary {
 			break;
 
 		case 2: // add comix
+			int inputYear = 0;
+			int inputMonthOfYear = 0;
+			int inputDayOfMonth = 0;
 			ComixLibraryOperations clo = new ComixLibraryOperations();
 			String comixTitle, issueName, mainHeroName;
 			DateTime issueYear = new DateTime();
 			Calendar dateOfBuying = new GregorianCalendar();
 			System.out.println("Input Year of isuue!");
-			issueYear = issueYear.year().setCopy(clo.inputDigit());
-			System.out.println("Input Month of issue! in format (0-12)");
-			issueYear = issueYear.monthOfYear().setCopy(clo.inputDigit());
-			System.out.println("Input Day of issue!");
-			issueYear = issueYear.dayOfMonth().setCopy(clo.inputDigit());
+			inputYear = clo.inputDigit();
+			issueYear = issueYear.year().setCopy(inputYear);
+			
+			System.out.println("Input Month of issue! in format (1-12)");			
+			while (true){
+			    inputMonthOfYear = clo.inputDigit();
+			    if ( 0 <inputMonthOfYear && inputMonthOfYear <=12 ){
+			issueYear = issueYear.monthOfYear().setCopy(inputMonthOfYear);
+			break;
+			    }else System.out.println("Input Digit (1-12)");
+			    }
+			
+			System.out.println("Input Day of issue! (1-30(31,28,29)");
+			while (true){
+				inputDayOfMonth = clo.inputDigit();
+				int lastDayOfMonth = 0;
+				lastDayOfMonth = getLastDayOfMonth(inputMonthOfYear, inputYear);
+				if ( 0 <inputDayOfMonth && inputDayOfMonth <=lastDayOfMonth ){					
+			        issueYear = issueYear.dayOfMonth().setCopy(inputDayOfMonth);
+			        break;
+				}else System.out.println("Input Digit (1-30(31,28,29))");
+				}
+			
 			System.out.println("Input the Main Hero name!");
 			mainHeroName = clo.inputValue();
 			System.out.println("Input the issue Name!");
 			issueName = clo.inputValue();
 			System.out.println("Input Comix Title!");
 			comixTitle = clo.inputValue();
+			
 			System.out.println("Input Year of buying!");
-			dateOfBuying.set(Calendar.YEAR, clo.inputDigit());
+			inputYear = clo.inputDigit();
+			dateOfBuying.set(Calendar.YEAR, inputYear);
+			
 			System.out.println("Input Month of buying!");
-			dateOfBuying.set(Calendar.MONTH, (clo.inputDigit() - 1));
+			while (true){
+			    inputMonthOfYear = clo.inputDigit();
+			    if ( 0 <inputMonthOfYear && inputMonthOfYear <=12 ){
+			dateOfBuying.set(Calendar.MONTH, (inputMonthOfYear - 1));
+			break;
+			    }else System.out.println("Input Digit (1-12)");
+			    }
+			
 			System.out.println("Input Day of buying!");
-			dateOfBuying.set(Calendar.DAY_OF_MONTH, clo.inputDigit());
+			while (true){
+				inputDayOfMonth = clo.inputDigit();
+				int lastDayOfMonth = 0;
+				lastDayOfMonth = getLastDayOfMonth(inputMonthOfYear, inputYear);
+				if ( 0 <inputDayOfMonth && inputDayOfMonth <=lastDayOfMonth ){	
+			dateOfBuying.set(Calendar.DAY_OF_MONTH, inputDayOfMonth);
+			break;
+				}else System.out.println("Input Digit (1-30(31,28,29))");
+				}
+			
+			
 			ComixNotation CN = new ComixNotation(issueYear, mainHeroName, issueName, comixTitle, dateOfBuying);
 			library.put(issueName, CN);
 			 serData();
@@ -60,6 +102,16 @@ public class ComixLibrary {
 
 	}
 
+	public static int getLastDayOfMonth( int month,  int year) {
+		int JANUARY = 1;
+	    int DECEMBER = 12;
+		int FIRST_OF_THE_MONTH = 1;
+		LocalDate aDate = new LocalDate(year, month, FIRST_OF_THE_MONTH);
+		int lastDay=0;
+        lastDay = aDate.dayOfMonth().getMaximumValue();
+        return lastDay;
+	}
+	
 	public static void serData() {
 		try {
 			FileOutputStream fileOut = new FileOutputStream("profiles.ser");
@@ -104,57 +156,7 @@ public class ComixLibrary {
 	}
 
 	public static void main(String[] args) {
-		ComixNotation CN = new ComixNotation();
-		System.out.println(CN);
-		String str = "aaaaaaa";
-		DateTime DT = new DateTime(2015, 10, 11, 0, 0);
-		Calendar CL = new GregorianCalendar(2016, 1, 28);
-
-		// serData
-		try {
-			FileOutputStream fileOut = new FileOutputStream("profiles.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(CN);
-			fileOut.close();
-			out.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found!" + "\n");
-			System.exit(1);
-			// e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("IO Exeption!");
-			System.exit(2);
-		}
-
-		// deserData
-		ComixNotation CN1 = new ComixNotation();
-		String str1 = "FFFFF";
-		DateTime DT1 = new DateTime();
-		Calendar CL1 = new GregorianCalendar();
-		Object retObject = null;
-		try {
-			FileInputStream fileIn = new FileInputStream("profiles.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			retObject = in.readObject();
-			CN1 = (ComixNotation) retObject;
-			// book = (Map<String, PhoneNotation>) retObject;
-			fileIn.close();
-			in.close();
-
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found!" + "\n");
-			System.exit(1);
-			// e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("IO Exeption!");
-			System.exit(2);
-		} catch (ClassNotFoundException e) {
-			System.out.println("Class not found");
-			System.exit(3);
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
-		System.out.println(CN1);
-
+	//TODO
 	}
 
 }

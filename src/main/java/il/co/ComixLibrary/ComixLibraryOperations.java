@@ -12,12 +12,13 @@ public class ComixLibraryOperations {
 	// input digit method
 	int inputDigit() {
 		while (true) {
-			if (scn.hasNext()) {
+			if (scn.hasNextInt()) {
 				d = scn.next();
 				a = Integer.parseInt(d);
 				break;
 			} else {
 				System.out.println("ERROR INPUT!" + "\n" + "Input a digit again please!");
+				d = scn.nextLine();
 				d = scn.next();
 			}
 		}
