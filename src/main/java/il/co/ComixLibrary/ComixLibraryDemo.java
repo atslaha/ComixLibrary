@@ -9,9 +9,9 @@ public class ComixLibraryDemo {
         ComixLibraryOperations dig = new ComixLibraryOperations();
         while (true) {
             while (true) {
-                System.out.println("Press: 1-Show Library; 2-add comix; 3-delete comix; 4-edit comix; 5-searce comix; 6-sort comix.");
+                System.out.println("Press: 1-Show Library; 2-add comix; 3-delete comix; 4-searce comix; 5-sort comix.");
                 a = dig.inputDigit();
-                if (a > 0 && a < 7) {
+                if (a > 0 && a < 5) {
                     ComixLibrary.comixLibrary(a);
                     break;
                 }

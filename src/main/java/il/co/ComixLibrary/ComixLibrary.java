@@ -9,7 +9,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //remove this comment
 public class ComixLibrary {
@@ -117,6 +120,119 @@ public class ComixLibrary {
 			}
 			serData();
 			break;
+			
+		case 4: //Search ComixNotation
+			
+			
+			ComixLibraryOperations inputSearch = new ComixLibraryOperations();
+			int choice = 0;
+			while(true){
+				System.out.println("How you want to search:" + "\n"+ "1.Year of the issue;" 
+		                      + "\n" +  "2.The main hero name;" + "\n" + "3.Comix Title" + "\n");
+				choice = inputSearch.inputDigit();
+				if ( 0<choice && choice<4 ){
+					break;
+				}	else System.out.println("Try again!" + "\n");		
+			}
+			     switch (choice){
+			          case 1:// Search by Year of the issue
+			        	  while(true){
+			  				System.out.println("How you want to search:" + "\n"+ "1.Strictly year of the issue;" 
+			  		                      + "\n" +  "2.Before year of the issue incl.;" + "\n" + "3.After year of the issue incl." + "\n");
+			  				choice = inputSearch.inputDigit();
+			  				if ( 0<choice && choice<4 ){
+			  					break;
+			  				}	else System.out.println("Try again!" + "\n");		
+			  			}
+			            
+			        	      switch (choice){
+			        	           case 1://strictly YYYY
+			        	           System.out.println("Enter year of the issue! (YYYY)" + "\n");
+				        	       int inputYearIssue = 0;
+				        	       inputYearIssue = inputSearch.inputDigit();
+				        	         for (Map.Entry<String, ComixNotation> entry: library.entrySet()){
+				        		        ComixNotation CN2 = entry.getValue();
+				        		        DateTime dateIssue = CN2.getIssueYear();
+				        		        int yearIssue = dateIssue.getYear();
+				        		        //int yearIssue = entry.getValue().getIssueYear().getYear();
+				        		        if(Objects.equals(yearIssue, inputYearIssue)){
+				        			        System.out.println(entry.getValue());
+				        		        }
+				        	         }
+				        	        System.out.println();
+				        	        break;
+				        	        
+			        	           case 2://Before year of the issue incl.
+			        	        	   System.out.println("Enter year of the issue! (YYYY)" + "\n");
+					        	       int inputYearIssue1 = 0;
+					        	       inputYearIssue1 = inputSearch.inputDigit();
+					        	         for (Map.Entry<String, ComixNotation> entry: library.entrySet()){
+					        		        ComixNotation CN2 = entry.getValue();
+					        		        DateTime dateIssue = CN2.getIssueYear();
+					        		        int yearIssue = dateIssue.getYear();
+					        		        //int yearIssue = entry.getValue().getIssueYear().getYear();
+					        		        if(Objects.equals(yearIssue, inputYearIssue1) || yearIssue<inputYearIssue1 ){
+					        			        System.out.println(entry.getValue());
+					        		        }
+					        	         }
+					        	        System.out.println();
+			        	        	   break;
+			        	        	   
+			        	           case 3:
+			        	        	   System.out.println("Enter year of the issue! (YYYY)" + "\n");
+					        	       int inputYearIssue2 = 0;
+					        	       inputYearIssue2 = inputSearch.inputDigit();
+					        	         for (Map.Entry<String, ComixNotation> entry: library.entrySet()){
+					        		        ComixNotation CN2 = entry.getValue();
+					        		        DateTime dateIssue = CN2.getIssueYear();
+					        		        int yearIssue = dateIssue.getYear();
+					        		        //int yearIssue = entry.getValue().getIssueYear().getYear();
+					        		        if(Objects.equals(yearIssue, inputYearIssue2) || yearIssue>inputYearIssue2 ){
+					        			        System.out.println(entry.getValue());
+					        		        }
+					        	         }
+					        	        System.out.println();
+			        	        	   break;
+				        	  
+			        	      }
+				        	  break;
+				      
+			          case 2://Search by The main hero name
+			        	  System.out.println("Enter Hero's Name! (*Name/*Name*/Name*)" + "\n");
+			        	  String inputHeroName = inputSearch.inputValue();
+			        	  inputHeroName=inputHeroName.replaceAll("[*]", "(.*)");
+			        	  for (Map.Entry<String, ComixNotation> entry: library.entrySet()){
+			        		  ComixNotation CN3 = entry.getValue();
+			        		  String heroName = CN3.getMainHeroName();
+			        		  Pattern pattern = Pattern.compile(inputHeroName);
+			        		  Matcher matcher = pattern.matcher(heroName);
+			        		  if (matcher.find()){
+			        			  System.out.println(entry.getValue());
+			        		  }
+		        		        
+			        	  }
+			        	  
+			        	  break;
+			          
+			          case 3://Search by Comix Title
+			        	  System.out.println("Enter Comix's Title! (*Title/*Title*/Title*)" + "\n");
+			        	  String inputComixTitle = inputSearch.inputValue();
+			        	  inputComixTitle=inputComixTitle.replaceAll("[*]", "(.*)");
+			        	  for (Map.Entry<String, ComixNotation> entry: library.entrySet()){
+			        		  ComixNotation CN3 = entry.getValue();
+			        		  String comixTitle1 = CN3.getComixTitle();
+			        		  Pattern pattern = Pattern.compile(inputComixTitle);
+			        		  Matcher matcher = pattern.matcher(comixTitle1);
+			        		  if (matcher.find()){
+			        			  System.out.println(entry.getValue());
+			        		  }
+		        		        
+			        	  }
+			        	  break;
+			        	  
+			          case 4:
+			        	  break;
+			     }
 
 		}
 

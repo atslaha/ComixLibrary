@@ -56,8 +56,11 @@ public class ComixLibraryOperations {
 				d = scnn.nextLine();
 				// scnn.close();
 				break;
-			} else
+			} else{
 				System.out.println("ERROR INPUT" + "\n" + "Please try againe!");
+				String falureInput=scnn.nextLine();
+				falureInput=scnn.next();				
+		      }
 		}
 
 		return d;
