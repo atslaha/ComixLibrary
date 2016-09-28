@@ -145,57 +145,8 @@ public class ComixLibrary {
 			  				}	else System.out.println("Try again!" + "\n");		
 			  			}
 			            
-			        	      switch (choice){
-			        	           case 1://strictly YYYY
-			        	           System.out.println("Enter year of the issue! (YYYY)" + "\n");
-				        	       int inputYearIssue = 0;
-				        	       inputYearIssue = inputSearch.inputDigit();
-				        	         for (Map.Entry<String, ComixNotation> entry: library.entrySet()){
-				        		        ComixNotation CN2 = entry.getValue();
-				        		        DateTime dateIssue = CN2.getIssueYear();
-				        		        int yearIssue = dateIssue.getYear();
-				        		        //int yearIssue = entry.getValue().getIssueYear().getYear();
-				        		        if(Objects.equals(yearIssue, inputYearIssue)){
-				        			        System.out.println(entry.getValue());
-				        		        }
-				        	         }
-				        	        System.out.println();
-				        	        break;
-				        	        
-			        	           case 2://Before year of the issue incl.
-			        	        	   System.out.println("Enter year of the issue! (YYYY)" + "\n");
-					        	       int inputYearIssue1 = 0;
-					        	       inputYearIssue1 = inputSearch.inputDigit();
-					        	         for (Map.Entry<String, ComixNotation> entry: library.entrySet()){
-					        		        ComixNotation CN2 = entry.getValue();
-					        		        DateTime dateIssue = CN2.getIssueYear();
-					        		        int yearIssue = dateIssue.getYear();
-					        		        //int yearIssue = entry.getValue().getIssueYear().getYear();
-					        		        if(Objects.equals(yearIssue, inputYearIssue1) || yearIssue<inputYearIssue1 ){
-					        			        System.out.println(entry.getValue());
-					        		        }
-					        	         }
-					        	        System.out.println();
-			        	        	   break;
-			        	        	   
-			        	           case 3:
-			        	        	   System.out.println("Enter year of the issue! (YYYY)" + "\n");
-					        	       int inputYearIssue2 = 0;
-					        	       inputYearIssue2 = inputSearch.inputDigit();
-					        	         for (Map.Entry<String, ComixNotation> entry: library.entrySet()){
-					        		        ComixNotation CN2 = entry.getValue();
-					        		        DateTime dateIssue = CN2.getIssueYear();
-					        		        int yearIssue = dateIssue.getYear();
-					        		        //int yearIssue = entry.getValue().getIssueYear().getYear();
-					        		        if(Objects.equals(yearIssue, inputYearIssue2) || yearIssue>inputYearIssue2 ){
-					        			        System.out.println(entry.getValue());
-					        		        }
-					        	         }
-					        	        System.out.println();
-			        	        	   break;
-				        	  
-			        	      }
-				        	  break;
+			        	  searchYear(choice);
+				          break;
 				      
 			          case 2://Search by The main hero name
 			        	  System.out.println("Enter Hero's Name! (*Name/*Name*/Name*)" + "\n");
@@ -229,14 +180,86 @@ public class ComixLibrary {
 		        		        
 			        	  }
 			        	  break;
-			        	  
-			          case 4:
-			        	  break;
+			        				          
 			     }
+			     break;
+		
+		
+		case 5: //Sort
+			ComixLibraryOperations inputSort = new ComixLibraryOperations();
+			int choice1 = 0;
+			while(true){
+				System.out.println("Sort by: 1. Year of the issue; 2. The main Hero name; 3. Comix Title" + "\n");
+				choice1 = inputSort.inputDigit();
+				if ( 0<choice1 && choice1<4 ){
+					break;
+				}	else System.out.println("Try again!" + "\n");		
+			}
+			     switch (choice1){
+			     case 1: // Year of the issue
+			    	 
+			    	 
+			    	 
+			    	 break;
+			     
+			     }
+			break;
 
 		}
 
 	}
+	
+	static void searchYear(int choice){
+		ComixLibraryOperations inputSearchYear = new ComixLibraryOperations();
+		switch (choice){
+        case 1://strictly YYYY
+        System.out.println("Enter year of the issue! (YYYY)" + "\n");
+	       int inputYearIssue = 0;
+	       inputYearIssue = inputSearchYear.inputDigit();
+	         for (Map.Entry<String, ComixNotation> entry: library.entrySet()){
+		        ComixNotation CN2 = entry.getValue();
+		        DateTime dateIssue = CN2.getIssueYear();
+		        int yearIssue = dateIssue.getYear();		        
+		        if(Objects.equals(yearIssue, inputYearIssue)){
+			        System.out.println(entry.getValue());
+		        }
+	         }
+	        System.out.println();
+	        break;
+	        
+        case 2://Before year of the issue incl.
+     	   System.out.println("Enter year of the issue! (YYYY)" + "\n");
+ 	       int inputYearIssue1 = 0;
+ 	       inputYearIssue1 = inputSearchYear.inputDigit();
+ 	         for (Map.Entry<String, ComixNotation> entry: library.entrySet()){
+ 		        ComixNotation CN2 = entry.getValue();
+ 		        DateTime dateIssue = CN2.getIssueYear();
+ 		        int yearIssue = dateIssue.getYear(); 		        
+ 		        if(Objects.equals(yearIssue, inputYearIssue1) || yearIssue<inputYearIssue1 ){
+ 			        System.out.println(entry.getValue());
+ 		        }
+ 	         }
+ 	        System.out.println();
+     	   break;
+     	   
+        case 3:
+     	   System.out.println("Enter year of the issue! (YYYY)" + "\n");
+ 	       int inputYearIssue2 = 0;
+ 	       inputYearIssue2 = inputSearchYear.inputDigit();
+ 	         for (Map.Entry<String, ComixNotation> entry: library.entrySet()){
+ 		        ComixNotation CN2 = entry.getValue();
+ 		        DateTime dateIssue = CN2.getIssueYear();
+ 		        int yearIssue = dateIssue.getYear();
+ 		        //int yearIssue = entry.getValue().getIssueYear().getYear();
+ 		        if(Objects.equals(yearIssue, inputYearIssue2) || yearIssue>inputYearIssue2 ){
+ 			        System.out.println(entry.getValue());
+ 		        }
+ 	         }
+ 	        System.out.println();
+     	   break;	  
+   }	  
+}
+	
 
 	public static int getLastDayOfMonth( int month,  int year) {
 		int JANUARY = 1;
