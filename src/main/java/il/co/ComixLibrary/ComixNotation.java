@@ -74,11 +74,11 @@ public class ComixNotation implements Serializable {
         this.dateOfBuying.set(Calendar.YEAR, year);
     }
 
-    public void setDateOfButingMonth(int month) {
+    public void setDateOfBuyingMonth(int month) {
         this.dateOfBuying.set(Calendar.MONTH, month);
     }
 
-    public void setDateOfBuingDay(int day) {
+    public void setDateOfBuyingDay(int day) {
         this.dateOfBuying.set(Calendar.DAY_OF_MONTH, day);
     }
 
