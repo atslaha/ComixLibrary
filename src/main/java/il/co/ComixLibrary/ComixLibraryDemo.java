@@ -22,12 +22,13 @@ public class ComixLibraryDemo {
                         
                     case 2: // add comixNotation
                         ComixNotation CN = new ComixNotation();
-                        CN.setIssueYear(CL.inputIssueDate());
-                        CN.setMainHeroName(CL.inputMainHeroName());
-                        CN.setIssueName(CL.inputIssueName());
-                        CN.setComixTitle(CL.inputComixTitle());
-                        CN.setDateOfBuying(CL.inputDateOfBuying());
-                        CL.setLibrary(CL.inputKey(), CN);
+                        ComixLibraryOperations clo = new ComixLibraryOperations();
+                        CN.setIssueYear(clo.inputIssueDate());
+                        CN.setMainHeroName(clo.inputMainHeroName());
+                        CN.setIssueName(clo.inputIssueName());
+                        CN.setComixTitle(clo.inputComixTitle());
+                        CN.setDateOfBuying(clo.inputDateOfBuying());
+                        CL.setLibrary(clo.inputKey(), CN);
                         CL.serData();
                         break;
                         
@@ -37,11 +38,13 @@ public class ComixLibraryDemo {
                         break;
                         
                     case 4: // search
-                        CL.search(CL.inputChoiceOfSearch());
+                        ComixLibraryOperations clo1 = new ComixLibraryOperations();
+                        CL.search(clo1.inputChoiceOfSearch());
                         break;
                         
                     case 5: //sort
-                        CL.sort(CL.inputChoiceOfSort());
+                        ComixLibraryOperations clo2 = new ComixLibraryOperations();
+                        CL.sort(clo2.inputChoiceOfSort());
                         break;
                     }
                     
