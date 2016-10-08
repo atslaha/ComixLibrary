@@ -2,6 +2,7 @@ package main.java.il.co.ComixLibrary;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -210,6 +211,11 @@ public class ComixLibraryOperations {
         return lastDay;
     }
 	
+    public void printSearchResults(Map<String, ComixNotation> searchResults){
+        for (Map.Entry<String, ComixNotation> entry: searchResults.entrySet()){
+            System.out.println(entry.getValue());
+        }
+    }
 	
 	
 	

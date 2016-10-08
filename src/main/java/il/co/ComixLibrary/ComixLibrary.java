@@ -6,10 +6,16 @@ import org.joda.time.LocalDate;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,16 +27,12 @@ import java.util.stream.Stream;
 public class ComixLibrary {
 
     private Map<String, ComixNotation> library = new HashMap<>();
+    private Map<String, ComixNotation> searchResults = new HashMap<>();
 
-    public void showNotations() {
-        int count = 0;
-        for (ComixNotation p : library.values()) {
-            count++;
-            System.out.println(count + ": " + p);
-        }
-        System.out.println();
+    public Map<String, ComixNotation> getComixLibrary(){
+        return library;
     }
-           
+               
     public void setLibrary(String uuid, ComixNotation CN){
         this.library.put(uuid, CN);
     }
@@ -47,75 +49,82 @@ public class ComixLibrary {
         }
     }
          
-    public void searchByHeroName(String inputHeroName){
+    public Map<String, ComixNotation> searchByHeroName(String inputHeroName){
         for (Map.Entry<String, ComixNotation> entry : library.entrySet()) {
             ComixNotation CN3 = entry.getValue();
             String heroName = CN3.getMainHeroName();
             Pattern pattern = Pattern.compile(inputHeroName);
             Matcher matcher = pattern.matcher(heroName);
             if (matcher.find()) {
-                System.out.println(entry.getValue());
+                searchResults.put(entry.getKey(), entry.getValue());
             }
         }
+        return searchResults;
     }
     
-    public void searchByTitle(String inputComixTitle){
+    public Map<String, ComixNotation> searchByTitle(String inputComixTitle){
         for (Map.Entry<String, ComixNotation> entry : library.entrySet()) {
             ComixNotation CN3 = entry.getValue();
             String comixTitle1 = CN3.getComixTitle();
             Pattern pattern = Pattern.compile(inputComixTitle);
             Matcher matcher = pattern.matcher(comixTitle1);
             if (matcher.find()) {
-                System.out.println(entry.getValue());
+                searchResults.put(entry.getKey(), entry.getValue());
             }
 
         }
+        return searchResults;
     }
     
-    public void searchYearStrictly(int inputYearIssue){
+    public Map<String, ComixNotation> searchYearStrictly(int inputYearIssue){
         for (Map.Entry<String, ComixNotation> entry : library.entrySet()) {
             ComixNotation CN2 = entry.getValue();
             DateTime dateIssue = CN2.getIssueYear();
             int yearIssue = dateIssue.getYear();            
             if (Objects.equals(yearIssue, inputYearIssue)) {
-                System.out.println(entry.getValue());
+                searchResults.put(entry.getKey(), entry.getValue());
             }
         }
         System.out.println();
+        return searchResults;
     }
     
-    public void  searchYearBefore(int inputYearIssue1){
+    public Map<String, ComixNotation>  searchYearBefore(int inputYearIssue1){
         for (Map.Entry<String, ComixNotation> entry : library.entrySet()) {
             ComixNotation CN2 = entry.getValue();
             DateTime dateIssue = CN2.getIssueYear();
             int yearIssue = dateIssue.getYear();
             if (Objects.equals(yearIssue, inputYearIssue1) || yearIssue < inputYearIssue1) {
-                System.out.println(entry.getValue());
+                searchResults.put(entry.getKey(), entry.getValue());
             }
         }
         System.out.println();
+        return searchResults;
     }
     
-    public void searchYearAfter(int inputYearIssue2){
+    public Map<String, ComixNotation> searchYearAfter(int inputYearIssue2){
         for (Map.Entry<String, ComixNotation> entry : library.entrySet()) {
             ComixNotation CN2 = entry.getValue();
             DateTime dateIssue = CN2.getIssueYear();
             int yearIssue = dateIssue.getYear();
             // int yearIssue = entry.getValue().getIssueYear().getYear();
             if (Objects.equals(yearIssue, inputYearIssue2) || yearIssue > inputYearIssue2) {
-                System.out.println(entry.getValue());
+                searchResults.put(entry.getKey(), entry.getValue());
             }
         }
         System.out.println();
+        return searchResults;
     }    
         
+    
+    
     public void sort(int choice1){
         switch (choice1) {
         case 1: // Year of the issue
 
-            // Stream<Map.Entry<String,ComixNotation>> sorted =
-            // library.entrySet().stream()
-            // .sorted(Map.Entry.comparingByValue());
+             //Stream<Map.Entry<String,ComixNotation>> sorted =
+             //library.entrySet().stream().sorted(Map.Entry.comparingByValue());
+            
 
             break;
 
