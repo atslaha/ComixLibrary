@@ -18,20 +18,38 @@ import java.util.regex.Pattern;
 
 
 
-//remove this comment
-public class ComixLibrary {
+/**
+ * ComixLibrary represents a Library container with ComixNotation object inside it and the Library features. 
+ * @author Artem Meleshko
+ * @version 1.0
+ *
+ */
+public class ComixLibrary {    
 
     private Map<String, ComixNotation> library = new LinkedHashMap<>();
     private Map<String, ComixNotation> searchResults = new HashMap<>();
 
+    /**
+     * Returns comic library with notations.
+     * @return LinkedHashMap(String, ComixNotation)
+     */
     public Map<String, ComixNotation> getComixLibrary(){
         return library;
     }
                
+    /**
+     * Sets (String)Keys and (ComixNotation)Values in the comic library (LinkedHashMap(String, ComixNotation)).
+     * @param uuid is the String Key of the LinkedHashMap(String, ComixNotation).
+     * @param CN (ComixNotation) object.
+     */
     public void setLibrary(String uuid, ComixNotation CN){
         this.library.put(uuid, CN);
     }
     
+    /**
+     * Deletes elements from ComixLibrary with (int) input value. Input Value is the number or string with comic notation(or position in LinkedHashMap(String, ComixNotation))
+     * @param inputNumber (int) position in LinkedHashMap(String, ComixNotation).   
+     */
     public void deleteComixNotation(int inputNumber){        
         int count1 = 0;
         for (Map.Entry<String, ComixNotation> entry : this.library.entrySet()) {
@@ -43,7 +61,12 @@ public class ComixLibrary {
             }
         }
     }
-         
+    
+    /**
+     * Searches comic notations with the main hero name similar with the search input.
+     * @param inputHeroName (String) the main's hero name.
+     * @return HashMap(String, ComixNotation) with the search results.
+     */
     public Map<String, ComixNotation> searchByHeroName(String inputHeroName){
         for (Map.Entry<String, ComixNotation> entry : library.entrySet()) {
             ComixNotation CN3 = entry.getValue();
@@ -57,6 +80,11 @@ public class ComixLibrary {
         return searchResults;
     }
     
+    /**
+     * Searches comic notations with the titles similar with the search input. 
+     * @param inputComixTitle (String) the comic title.
+     * @return HashMap(String, ComixNotation) with the search results.
+     */
     public Map<String, ComixNotation> searchByTitle(String inputComixTitle){
         for (Map.Entry<String, ComixNotation> entry : library.entrySet()) {
             ComixNotation CN3 = entry.getValue();
@@ -66,11 +94,15 @@ public class ComixLibrary {
             if (matcher.find()) {
                 searchResults.put(entry.getKey(), entry.getValue());
             }
-
         }
         return searchResults;
     }
     
+    /**
+     * Searches comic notations with the concrete Date of the comic magazine producing.   
+     * @param inputYearIssue (int) the year of the issue's magazine producing.
+     * @return HashMap(String, ComixNotation) with the search results.
+     */
     public Map<String, ComixNotation> searchYearStrictly(int inputYearIssue){
         for (Map.Entry<String, ComixNotation> entry : library.entrySet()) {
             ComixNotation CN2 = entry.getValue();
@@ -84,6 +116,11 @@ public class ComixLibrary {
         return searchResults;
     }
     
+    /**
+     * Searches comic notations witch was producing before the Date of the issue's magazine producing.
+     * @param inputYearIssue1 (int) the year of the issue's magazine producing.
+     * @return HashMap(String, ComixNotation) with the search results.
+     */
     public Map<String, ComixNotation>  searchYearBefore(int inputYearIssue1){
         for (Map.Entry<String, ComixNotation> entry : library.entrySet()) {
             ComixNotation CN2 = entry.getValue();
@@ -97,6 +134,11 @@ public class ComixLibrary {
         return searchResults;
     }
     
+    /**
+     * Searches comic notations witch was producing after the Date of the issue's magazine producing.
+     * @param inputYearIssue2 (int) the year of the issue's magazine producing.
+     * @return HashMap(String, ComixNotation) with the search results.
+     */
     public Map<String, ComixNotation> searchYearAfter(int inputYearIssue2){
         for (Map.Entry<String, ComixNotation> entry : library.entrySet()) {
             ComixNotation CN2 = entry.getValue();
@@ -111,7 +153,11 @@ public class ComixLibrary {
         return searchResults;
     }    
         
-    
+    /**
+     * Sorts ComixNotations in the library by the (DateTime)issue year of the producing .
+     * @param map Map(String, ComixNotation) with the comic library.
+     * @return LinkedHashMap(String, ComixNotation) with the sorted library.
+     */
     public  <String, ComixNotation> Map<String, ComixNotation> sortByIssueYear(Map<String, ComixNotation> map) {
         List<Entry<String, ComixNotation>> list = new LinkedList<>(map.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<String, ComixNotation>>(){
@@ -150,6 +196,11 @@ public class ComixLibrary {
         return (Map<String, ComixNotation>) library;
    }
     
+    /**
+     * Sorts ComixNotations in the library by the (String) the main's hero name.
+     * @param map Map(String, ComixNotation) with the comic library.
+     * @return LinkedHashMap(String, ComixNotation) with the sorted library.
+     */
     public  <String, ComixNotation> Map<String, ComixNotation> sortByMainHeroName(Map<String, ComixNotation> map) {
         List<Entry<String, ComixNotation>> list = new LinkedList<>(map.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<String, ComixNotation>>(){
@@ -169,6 +220,11 @@ public class ComixLibrary {
         return (Map<String, ComixNotation>) library;
     }
     
+    /**
+     * Sorts ComixNotations in the library by the (String)comic title.
+     * @param map Map(String, ComixNotation) with the comic library.
+     * @return LinkedHashMap(String, ComixNotation) with the sorted library.
+     * */
     public  <String, ComixNotation> Map<String, ComixNotation> sortComixTitle(Map<String, ComixNotation> map) {
         List<Entry<String, ComixNotation>> list = new LinkedList<>(map.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<String, ComixNotation>>(){
@@ -188,17 +244,9 @@ public class ComixLibrary {
         return (Map<String, ComixNotation>) library;
    }
     
-    public void sort(int choice1){
-        switch (choice1) {
-        case 1: // Year of the issue
-
-             System.out.println(ComixLibraryOperations.sortByValue(library));
-
-            break;
-
-        }
-    }
-
+    /**
+     * Writes (ComixLibrary) object of the comic library in file.
+     */
     public void serData() {
         try {
             FileOutputStream fileOut = new FileOutputStream("profiles.ser");
@@ -217,6 +265,9 @@ public class ComixLibrary {
 
     }
 
+    /**
+     * Reads (ComixLibrary)object of the comic library from the file. 
+     */
     public void deserData() {
         Object retObject = null;
         try {

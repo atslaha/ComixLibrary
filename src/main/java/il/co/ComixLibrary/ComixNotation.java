@@ -26,7 +26,7 @@ public class ComixNotation implements Serializable {
 
     /**
      * Constructs and initializes ComixNotation 
-     * @param issueYear is DateTime object of the jodaTime library with the comic Issue's Date of producing.
+     * @param issueYear is DateTime object of the jodaTime library with the Date of the comic Issue's producing.
      * @param mainHeroName is a notation with the main hero's name.
      * @param issueName is a notation with the name of all this issue. 
      * @param comixTitle is a notation with the title description of the comic magazine.

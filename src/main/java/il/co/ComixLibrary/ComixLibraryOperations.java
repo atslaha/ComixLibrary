@@ -224,45 +224,7 @@ public class ComixLibraryOperations {
         }
     }
 	
-    public static <String, ComixNotation> Map<String, ComixNotation> sortByValue(Map<String, ComixNotation> map) {
-        List<Entry<String, ComixNotation>> list = new LinkedList<>(map.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, ComixNotation>>(){
-            public int compare( Map.Entry<String, ComixNotation> o1, Map.Entry<String, ComixNotation> o2 )
-            {
-                Integer issueYear1 = 0, issueYear2 = 0, issueMonth1 = 0,issueMonth2 = 0,issueDay1 = 0,issueDay2 = 0;
-                //ComixNotation CN = new ComixNotation();
-                if (o1.getValue() instanceof main.java.il.co.ComixLibrary.ComixNotation){
-                    
-                    issueYear1 = ((main.java.il.co.ComixLibrary.ComixNotation)(o1.getValue())).getIssueYear().getYear();
-                   issueMonth1 = ((main.java.il.co.ComixLibrary.ComixNotation)(o1.getValue())).getIssueYear().getMonthOfYear();
-                   issueDay1 = ((main.java.il.co.ComixLibrary.ComixNotation) (o1.getValue())).getIssueYear().getDayOfMonth();
-                }
-                
-                if (o2.getValue() instanceof main.java.il.co.ComixLibrary.ComixNotation){
-                    issueYear2 = ((main.java.il.co.ComixLibrary.ComixNotation) (o2.getValue())).getIssueYear().getYear();
-                    issueMonth2 = ((main.java.il.co.ComixLibrary.ComixNotation) (o2.getValue())).getIssueYear().getMonthOfYear();
-                    issueDay2 = ((main.java.il.co.ComixLibrary.ComixNotation) (o2.getValue())).getIssueYear().getDayOfMonth();
-                }
-                        
-                if (issueYear1 != issueYear2) return ((int)(issueYear1-issueYear2));
-                if (issueYear1 == issueYear2 && issueMonth1 != issueMonth2) return ((int)(issueMonth1 - issueMonth2));
-                if (issueYear1 == issueYear2 && issueMonth1 == issueMonth2 && issueDay1 != issueDay2) return ((int)(issueDay1-issueDay2));
-                else return 0;
-            }
-        } );    
-
-        Map<String, ComixNotation> result = new LinkedHashMap<>();
-        for (Iterator<Entry<String, ComixNotation>> it = list.iterator(); it.hasNext();) {
-            Map.Entry<String, ComixNotation> entry = (Map.Entry<String, ComixNotation>) it.next();
-            result.put(entry.getKey(), entry.getValue());
-        }
-        return result;
-    }
-	
-	
-	
-	
-	
+    	
 
 	public static void main(String[] args) {
 		// while (a.hasNextLine()) { b += a.nextLine(); }
