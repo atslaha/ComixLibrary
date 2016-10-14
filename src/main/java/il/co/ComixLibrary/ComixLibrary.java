@@ -2,6 +2,7 @@ package main.java.il.co.ComixLibrary;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import main.java.il.co.ComixLibrary.*;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -10,6 +11,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 import java.util.UUID;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -26,7 +29,7 @@ import java.util.stream.Stream;
 //remove this comment
 public class ComixLibrary {
 
-    private Map<String, ComixNotation> library = new HashMap<>();
+    private Map<String, ComixNotation> library = new LinkedHashMap<>();
     private Map<String, ComixNotation> searchResults = new HashMap<>();
 
     public Map<String, ComixNotation> getComixLibrary(){
@@ -117,14 +120,87 @@ public class ComixLibrary {
     }    
         
     
+    public  <String, ComixNotation> Map<String, ComixNotation> sortByIssueYear(Map<String, ComixNotation> map) {
+        List<Entry<String, ComixNotation>> list = new LinkedList<>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, ComixNotation>>(){
+            public int compare( Map.Entry<String, ComixNotation> o1, Map.Entry<String, ComixNotation> o2 )
+            {
+                //return ((DateTime)(((main.java.il.co.ComixLibrary.ComixNotation)(o1.getValue())).getIssueYear())).compareTo
+                //        ((DateTime)(((main.java.il.co.ComixLibrary.ComixNotation)(o2.getValue())).getIssueYear()));
+                
+                Integer issueYear1 = 0, issueYear2 = 0, issueMonth1 = 0,issueMonth2 = 0,issueDay1 = 0,issueDay2 = 0;
+                if (o1.getValue() instanceof main.java.il.co.ComixLibrary.ComixNotation){
+                    
+                    issueYear1 = ((main.java.il.co.ComixLibrary.ComixNotation)(o1.getValue())).getIssueYear().getYear();
+                   issueMonth1 = ((main.java.il.co.ComixLibrary.ComixNotation)(o1.getValue())).getIssueYear().getMonthOfYear();
+                   issueDay1 = ((main.java.il.co.ComixLibrary.ComixNotation) (o1.getValue())).getIssueYear().getDayOfMonth();
+                }
+                
+                if (o2.getValue() instanceof main.java.il.co.ComixLibrary.ComixNotation){
+                    issueYear2 = ((main.java.il.co.ComixLibrary.ComixNotation) (o2.getValue())).getIssueYear().getYear();
+                    issueMonth2 = ((main.java.il.co.ComixLibrary.ComixNotation) (o2.getValue())).getIssueYear().getMonthOfYear();
+                    issueDay2 = ((main.java.il.co.ComixLibrary.ComixNotation) (o2.getValue())).getIssueYear().getDayOfMonth();
+                }
+                        
+                if (issueYear1 != issueYear2) return ((int)(issueYear1-issueYear2));
+                if (issueYear1 == issueYear2 && issueMonth1 != issueMonth2) return ((int)(issueMonth1 - issueMonth2));
+                if (issueYear1 == issueYear2 && issueMonth1 == issueMonth2 && issueDay1 != issueDay2) return ((int)(issueDay1-issueDay2));
+                else return 0;
+            }
+        } );    
+
+        Map<String, ComixNotation> result = new LinkedHashMap<>();
+        for (Iterator<Entry<String, ComixNotation>> it = list.iterator(); it.hasNext();) {
+            Map.Entry<String, ComixNotation> entry = (Map.Entry<String, ComixNotation>) it.next();
+            result.put(entry.getKey(), entry.getValue());
+        }        
+        this.library = (Map<java.lang.String, main.java.il.co.ComixLibrary.ComixNotation>) result;
+        return (Map<String, ComixNotation>) library;
+   }
+    
+    public  <String, ComixNotation> Map<String, ComixNotation> sortByMainHeroName(Map<String, ComixNotation> map) {
+        List<Entry<String, ComixNotation>> list = new LinkedList<>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, ComixNotation>>(){
+            public int compare( Map.Entry<String, ComixNotation> o1, Map.Entry<String, ComixNotation> o2 )
+            {
+                return (((main.java.il.co.ComixLibrary.ComixNotation)(o1.getValue())).getMainHeroName().toLowerCase()).compareTo
+                        (((main.java.il.co.ComixLibrary.ComixNotation)(o2.getValue())).getMainHeroName().toLowerCase());
+            }
+        } );    
+
+        Map<String, ComixNotation> result = new LinkedHashMap<>();        
+        for (Map.Entry<String, ComixNotation> entry : list)
+        {
+            result.put( entry.getKey(), entry.getValue() );
+        }
+        this.library = (Map<java.lang.String, main.java.il.co.ComixLibrary.ComixNotation>) result;
+        return (Map<String, ComixNotation>) library;
+    }
+    
+    public  <String, ComixNotation> Map<String, ComixNotation> sortComixTitle(Map<String, ComixNotation> map) {
+        List<Entry<String, ComixNotation>> list = new LinkedList<>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, ComixNotation>>(){
+            public int compare( Map.Entry<String, ComixNotation> o1, Map.Entry<String, ComixNotation> o2 )
+            {
+                return (((main.java.il.co.ComixLibrary.ComixNotation)(o1.getValue())).getComixTitle().toLowerCase()).compareTo
+                        (((main.java.il.co.ComixLibrary.ComixNotation)(o2.getValue())).getComixTitle().toLowerCase());
+            }
+        } );    
+
+        Map<String, ComixNotation> result = new LinkedHashMap<>();        
+        for (Map.Entry<String, ComixNotation> entry : list)
+        {
+            result.put( entry.getKey(), entry.getValue() );
+        }
+        this.library = (Map<java.lang.String, main.java.il.co.ComixLibrary.ComixNotation>) result;
+        return (Map<String, ComixNotation>) library;
+   }
     
     public void sort(int choice1){
         switch (choice1) {
         case 1: // Year of the issue
 
-             //Stream<Map.Entry<String,ComixNotation>> sorted =
-             //library.entrySet().stream().sorted(Map.Entry.comparingByValue());
-            
+             System.out.println(ComixLibraryOperations.sortByValue(library));
 
             break;
 

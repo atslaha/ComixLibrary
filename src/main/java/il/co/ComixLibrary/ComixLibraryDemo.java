@@ -87,6 +87,28 @@ public class ComixLibraryDemo {
             
         }
     }
+    
+    public void sort(int choice1){
+        ComixLibrary CL = new ComixLibrary();
+        CL.deserData();
+        switch (choice1) {
+        case 1: // Year of the issue
+            
+            CL.sortByIssueYear(CL.getComixLibrary());
+            CL.serData();
+            break;
+            
+        case 2:
+            CL.sortByMainHeroName(CL.getComixLibrary());
+            CL.serData();
+            break;
+            
+        case 3:
+            CL.sortComixTitle(CL.getComixLibrary());
+            CL.serData();
+            break;
+        }
+    }
 
     public static void main(String[] args) {
         ComixLibrary CL = new ComixLibrary();
@@ -132,7 +154,8 @@ public class ComixLibraryDemo {
                         
                     case 5: //sort
                         ComixLibraryOperations clo2 = new ComixLibraryOperations();
-                        CL.sort(clo2.inputChoiceOfSort());
+                        CLD.sort(clo2.inputChoiceOfSort());
+                        CLD.showComixLibraryNotations();
                         break;
                     }                   
                     
