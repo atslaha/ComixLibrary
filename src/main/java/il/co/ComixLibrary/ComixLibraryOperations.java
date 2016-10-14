@@ -1,6 +1,5 @@
 package main.java.il.co.ComixLibrary;
 
-//import main.java.il.co.ComixLibrary.ComixNotation;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,11 +12,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.UUID;
-
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.joda.time.ReadableInstant;
-import org.joda.time.field.AbstractReadableInstantFieldProperty;
+
 
 public class ComixLibraryOperations {
 
