@@ -222,8 +222,11 @@ public class ComixNotation implements Serializable {
         result = 37 * result + mainHeroName.hashCode();
         result = 37 * result + issueName.hashCode();
         result = 37 * result + comixTitle.hashCode();
+        if (dateOfBuying != null){
         result = 37 * result + dateOfBuying.hashCode();
         return result;
+        }else return result;
+        
     }
 
     /**
